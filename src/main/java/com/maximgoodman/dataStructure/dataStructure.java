@@ -10,9 +10,11 @@ public class dataStructure {
 
         dataStructure a = new dataStructure();
         int[] randomArray = a.randomArray(5);
-        a.mergeSort(randomArray);
+        //a.mergeSort(randomArray);
 
-        System.out.println(Arrays.toString(randomArray));
+        //System.out.println(Arrays.toString(randomArray));
+
+        System.out.println(a.fibonacci(1));
     }
 
     private int[] randomArray(int size){
@@ -91,6 +93,18 @@ public class dataStructure {
         System.out.println("Right Array is: " + Arrays.toString(right));
         System.out.println("Sorted Array is: " + Arrays.toString(randomList));
 
+    }
+
+    private int fibonacci(int iterations){
+
+        if(iterations<1){
+            return 0;
+        }
+        else if(iterations <= 2){
+            return 1;
         }
 
+        return fibonacci(iterations-1)+fibonacci(iterations-2);
+
+    }
 }
