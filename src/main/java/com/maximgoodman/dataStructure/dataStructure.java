@@ -9,12 +9,15 @@ public class dataStructure {
     public static void main(String[] args){
 
         dataStructure a = new dataStructure();
-        int[] randomArray = a.randomArray(5);
+        int[] randomArray = {10,20,30,40,50,60,70,80,90,0};
+        //a.randomArray(10);
         //a.mergeSort(randomArray);
 
-        //System.out.println(Arrays.toString(randomArray));
+        System.out.println(Arrays.toString(randomArray));
 
-        System.out.println(a.fibonacci(1));
+        //System.out.println(a.fibonacci(1));
+
+        a.quickSort(randomArray, 0, randomArray.length-1);
     }
 
     private int[] randomArray(int size){
@@ -100,11 +103,61 @@ public class dataStructure {
         if(iterations<1){
             return 0;
         }
-        else if(iterations <= 2){
+        else if(iterations == 1){
             return 1;
         }
 
         return fibonacci(iterations-1)+fibonacci(iterations-2);
 
+    }
+
+    private void quickSort(int[] array, int lowIndex, int highIndex){
+
+        if(lowIndex<highIndex) {
+
+            int partitionIndex = partition(array, lowIndex, highIndex);
+
+            quickSort(array, lowIndex, partitionIndex - 1);
+            quickSort(array, partitionIndex + 1, highIndex);
+
+            System.out.println("The partition value is: " +array[partitionIndex]);
+        }
+        System.out.println("final sort is: " + Arrays.toString(array));
+    }
+
+    private int partition(int[] array, int lowIndex, int maxIndex){
+        int pivot = array[maxIndex];
+        int lowerIndex = lowIndex-1;
+        int higherIndex = 0;
+        int hold =0;
+
+        //at the end of this loop, higher index should be able to swap with pivot.
+        for(int i=0;i<maxIndex-1;i++){
+            //case where the value belongs on right of pivot
+            if(array[i]>pivot){
+
+            }
+            else{
+                //case where value belongs on left of pivot
+                hold = array[higherIndex];
+                lowerIndex++;
+                higherIndex++;
+                array[lowerIndex] = array[i];
+                array[i] = hold;
+            }
+
+        }
+
+        if(pivot>array[higherIndex]){
+
+        }
+        else {
+            hold = array[higherIndex];
+            array[higherIndex] = pivot;
+            array[maxIndex] = hold;
+        }
+
+        System.out.println("Partition: " + Arrays.toString(array));
+        return lowerIndex+1;
     }
 }
