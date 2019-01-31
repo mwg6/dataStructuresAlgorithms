@@ -9,7 +9,7 @@ public class dataStructure {
     public static void main(String[] args){
 
         dataStructure a = new dataStructure();
-        int[] randomArray = {10,20,30,40,50,60,70,80,90,0};
+        int[] randomArray = {10,20,30,40,0};
         //a.randomArray(10);
         //a.mergeSort(randomArray);
 
@@ -118,7 +118,7 @@ public class dataStructure {
             int partitionIndex = partition(array, lowIndex, highIndex);
 
             quickSort(array, lowIndex, partitionIndex - 1);
-            quickSort(array, partitionIndex + 1, highIndex);
+            quickSort(array, partitionIndex, highIndex);
 
             System.out.println("The partition value is: " +array[partitionIndex]);
         }
@@ -126,38 +126,35 @@ public class dataStructure {
     }
 
     private int partition(int[] array, int lowIndex, int maxIndex){
+
         int pivot = array[maxIndex];
-        int lowerIndex = lowIndex-1;
-        int higherIndex = 0;
+        //the place where the swap will need to take place is always going to be one ahead of the lower index
+        int lowerIndex = (lowIndex-1);
         int hold =0;
 
-        //at the end of this loop, higher index should be able to swap with pivot.
-        for(int i=0;i<maxIndex-1;i++){
-            //case where the value belongs on right of pivot
-            if(array[i]>pivot){
-
-            }
-            else{
-                //case where value belongs on left of pivot
-                hold = array[higherIndex];
+        for (int j=lowIndex; j<maxIndex; j++)
+        {
+            // If current element is smaller than or
+            // equal to pivot
+            if (array[j] <= pivot)
+            {
+                //as the current value of array[j] is less than the pivot
+                //increase the swap index
                 lowerIndex++;
-                higherIndex++;
-                array[lowerIndex] = array[i];
-                array[i] = hold;
+
+                // swap arr[i] and arr[j]
+                hold = array[lowerIndex];
+                array[lowerIndex] = array[j];
+                array[j] = hold;
             }
-
         }
 
-        if(pivot>array[higherIndex]){
+        // swap arr[i+1] and arr[high] (or pivot)
+        hold = array[lowerIndex+1];
+        array[lowerIndex+1] = array[maxIndex];
+        array[maxIndex] = hold;
 
-        }
-        else {
-            hold = array[higherIndex];
-            array[higherIndex] = pivot;
-            array[maxIndex] = hold;
-        }
-
-        System.out.println("Partition: " + Arrays.toString(array));
         return lowerIndex+1;
+
     }
 }
